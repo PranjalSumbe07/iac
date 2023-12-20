@@ -9,3 +9,17 @@ jobs:
         uses: snyk/actions/iac@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Install Snyk CLI
+        run: |
+          npm install -g snyk
+
+      - name: Authenticate with Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk Scan Helm Charts
+        run: |
+          find path/to/your/helm/charts -name '*.yaml' -o -name '*.yml' -exec snyk test --file={} \;   
+
+
+          
